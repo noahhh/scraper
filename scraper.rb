@@ -1,11 +1,11 @@
 require 'open-uri'
 require 'nokogiri'
+require 'json'
 
 url = 'http://www.cubecinema.com/programme'
 html = open(url)
 
 doc = Nokogiri::HTML(html)
-
 showings = []
 doc.css('.showing').each do |showing|
   showing_id = showing['id'].split('_').last.to_i
@@ -24,3 +24,5 @@ doc.css('.showing').each do |showing|
     description: description
   )
 end
+
+puts JSON.pretty_generate(showings)
